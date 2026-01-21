@@ -9,7 +9,7 @@ Inspired by: https://github.com/disler/claude-code-damage-control
 ### Option 1: Symlink (recommended for development)
 
 ```bash
-git clone https://github.com/your-username/opencode-damage-control.git
+git clone https://github.com/bneil/opencode-damage-control.git
 cd opencode-damage-control
 bun install
 
@@ -20,7 +20,7 @@ ln -s "$(pwd)" ~/.config/opencode/plugin/damage-control
 ### Option 2: Copy (for production)
 
 ```bash
-git clone https://github.com/your-username/opencode-damage-control.git
+git clone https://github.com/bneil/opencode-damage-control.git
 cp -r opencode-damage-control ~/.config/opencode/plugin/damage-control
 cd ~/.config/opencode/plugin/damage-control
 bun install
