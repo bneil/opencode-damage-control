@@ -1,5 +1,5 @@
 {
-  "name": "opencode-damage-control",
+  "name": "@bneil/opencode-damage-control",
   "version": "1.0.0",
   "description": "Security hooks for OpenCode - blocks dangerous commands and protects sensitive files",
   "type": "module",

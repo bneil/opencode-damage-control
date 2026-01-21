@@ -6,24 +6,16 @@ Inspired by: https://github.com/disler/claude-code-damage-control
 
 ## Installation
 
-### Option 1: Symlink (recommended for development)
+### Direct Install
 
 ```bash
-git clone https://github.com/bneil/opencode-damage-control.git
-cd opencode-damage-control
-bun install
+open your opencode config
+~/.config/opencode/opencode.jsonc 
 
-# Symlink to OpenCode plugins directory
-ln -s "$(pwd)" ~/.config/opencode/plugins/damage-control
-```
+Then add to the 'plugin' section
 
-### Option 2: Copy (for production)
+"plugin": ["@bneil/opencode-damage-control"],
 
-```bash
-git clone https://github.com/bneil/opencode-damage-control.git
-cp -r opencode-damage-control ~/.config/opencode/plugins/damage-control
-cd ~/.config/opencode/plugins/damage-control
-bun install
 ```
 
 Then restart OpenCode.
