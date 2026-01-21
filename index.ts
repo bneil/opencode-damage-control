@@ -24,16 +24,16 @@ import { checkFilePath, checkFilePathZeroAccessOnly } from "./matchers/file"
 // Get plugin directory for loading patterns.yaml
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-export const DamageControl: Plugin = async (ctx) => {
-  // Load config once at startup
-  const config = loadConfig(__dirname)
+const DamageControl: Plugin = async (ctx) => {
+  const config = await loadConfig(__dirname)
 
-  // Log initialization
-  await ctx.client.app.log({
+  // Log after returning hooks to avoid blocking init
+  // Fire-and-forget: don't await, just schedule it
+  ctx.client.app.log({
     service: "damage-control",
     level: "info",
     message: `Damage Control loaded: ${config.bashToolPatterns.length} bash patterns, ${config.zeroAccessPaths.length} zero-access paths, ${config.readOnlyPaths.length} read-only paths, ${config.noDeletePaths.length} no-delete paths`,
-  })
+  }).catch(() => {})
 
   return {
     "tool.execute.before": async (input, output) => {
@@ -122,5 +122,4 @@ export const DamageControl: Plugin = async (ctx) => {
   }
 }
 
-// Default export for OpenCode plugin loader
 export default DamageControl

@@ -5,8 +5,8 @@
  * Shared utilities for glob pattern matching and config loading.
  */
 
-import { existsSync, readFileSync } from "fs"
-import { dirname, join, basename } from "path"
+import { readFile } from "fs/promises"
+import { join, basename } from "path"
 import { homedir } from "os"
 import { parse as parseYaml } from "yaml"
 
@@ -229,34 +229,41 @@ export function checkPathPatterns(
 
 let cachedConfig: Config | null = null
 
-export function loadConfig(pluginDir: string): Config {
+const DEFAULT_CONFIG: Config = {
+  bashToolPatterns: [],
+  zeroAccessPaths: [],
+  readOnlyPaths: [],
+  noDeletePaths: [],
+}
+
+/**
+ * Load config asynchronously (non-blocking).
+ * Returns cached config if already loaded.
+ */
+export async function loadConfig(pluginDir: string): Promise<Config> {
   if (cachedConfig) {
     return cachedConfig
   }
 
   const configPath = join(pluginDir, "patterns.yaml")
 
-  if (!existsSync(configPath)) {
-    console.error(`[damage-control] Warning: Config not found at ${configPath}`)
-    return {
-      bashToolPatterns: [],
-      zeroAccessPaths: [],
-      readOnlyPaths: [],
-      noDeletePaths: [],
+  try {
+    const content = await readFile(configPath, "utf-8")
+    const config = parseYaml(content) as Partial<Config>
+
+    cachedConfig = {
+      bashToolPatterns: config.bashToolPatterns || [],
+      zeroAccessPaths: config.zeroAccessPaths || [],
+      readOnlyPaths: config.readOnlyPaths || [],
+      noDeletePaths: config.noDeletePaths || [],
     }
+
+    return cachedConfig
+  } catch (err) {
+    // File not found or read error - return empty config, don't block startup
+    console.error(`[damage-control] Failed to load config from ${configPath}:`, err)
+    return DEFAULT_CONFIG
   }
-
-  const content = readFileSync(configPath, "utf-8")
-  const config = parseYaml(content) as Partial<Config>
-
-  cachedConfig = {
-    bashToolPatterns: config.bashToolPatterns || [],
-    zeroAccessPaths: config.zeroAccessPaths || [],
-    readOnlyPaths: config.readOnlyPaths || [],
-    noDeletePaths: config.noDeletePaths || [],
-  }
-
-  return cachedConfig
 }
 
 /**
