@@ -13,16 +13,16 @@ git clone https://github.com/bneil/opencode-damage-control.git
 cd opencode-damage-control
 bun install
 
-# Symlink to OpenCode plugin directory
-ln -s "$(pwd)" ~/.config/opencode/plugin/damage-control
+# Symlink to OpenCode plugins directory
+ln -s "$(pwd)" ~/.config/opencode/plugins/damage-control
 ```
 
 ### Option 2: Copy (for production)
 
 ```bash
 git clone https://github.com/bneil/opencode-damage-control.git
-cp -r opencode-damage-control ~/.config/opencode/plugin/damage-control
-cd ~/.config/opencode/plugin/damage-control
+cp -r opencode-damage-control ~/.config/opencode/plugins/damage-control
+cd ~/.config/opencode/plugins/damage-control
 bun install
 ```
 
