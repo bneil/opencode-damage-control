@@ -2,6 +2,8 @@
 
 Security plugin that blocks dangerous commands and protects sensitive files.
 
+Inspired by: https://github.com/disler/claude-code-damage-control
+
 ## Installation
 
 ### Option 1: Symlink (recommended for development)
