@@ -1,6 +1,6 @@
 {
   "name": "@bneil/opencode-damage-control",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Security hooks for OpenCode - blocks dangerous commands and protects sensitive files",
   "type": "module",
   "main": "index.ts",
