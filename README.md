@@ -103,11 +103,15 @@ Handles OpenCode tools: `bash`, `read`, `write`, `edit`, `patch`, `glob`, `grep`
 ## Testing
 
 After installation, try these in OpenCode (they should be blocked):
+<img width="1199" height="196" alt="Screenshot 2026-01-21 at 5 06 26 PM" src="https://github.com/user-attachments/assets/a8b24ee0-1da9-4d45-850c-f9a29ca63e80" />
 
 ```bash
+echo "test" > package-lock.json
+
+// scarier, but should be covered
 rm -rf /
 cat ~/.ssh/id_rsa
-echo "test" > package-lock.json
+
 ```
 
 ## Notes
